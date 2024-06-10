@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ message: errors.array() });
@@ -53,13 +53,11 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
-const validateToken = async (req: Request, res: Response) => {
+export const validateToken = async (req: Request, res: Response) => {
   res.status(200).send({ userId: req.userId });
 };
 
-const logout = async (req: Request, res: Response) => {
+export const logout = async (req: Request, res: Response) => {
   res.clearCookie("auth_token");
   res.status(200).send({ message: "Logged out successfully" });
 };
-
-export default { login, validateToken, logout };

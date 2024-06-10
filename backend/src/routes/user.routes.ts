@@ -1,24 +1,21 @@
 import express from "express";
 import { check } from "express-validator";
 
-import authController from "../controllers/auth.controller";
-import verifyToken from "../middleware/auth.middleware";
+import * as UserController from "../controllers/user.controller";
 
 const router = express.Router();
 
 router.post(
-  "/login",
+  "/register",
   [
+    check("firstName", "First Name is required").isString(),
+    check("lastName", "Last Name is required").isString(),
     check("email", "Email is invalid").isEmail(),
     check("password", "Password with 6 or more characters required").isLength({
       min: 6,
     }),
   ],
-  authController.login
+  UserController.register
 );
-
-router.get("/validate-token", verifyToken, authController.validateToken);
-
-router.post("/logout", authController.logout);
 
 export default router;

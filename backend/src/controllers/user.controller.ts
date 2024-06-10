@@ -4,7 +4,7 @@ import { validationResult } from "express-validator";
 
 import User from "../models/user.model";
 
-const register = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ message: errors.array() });
@@ -39,8 +39,4 @@ const register = async (req: Request, res: Response) => {
     console.log(error);
     res.status(500).json({ message: "Something went wrong" });
   }
-};
-
-export default {
-  register,
 };

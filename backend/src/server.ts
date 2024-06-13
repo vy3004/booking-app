@@ -1,7 +1,8 @@
 import cors from "cors";
 import path from "path";
-import express from "express";
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
+import { v2 as cloudinary } from "cloudinary";
 import "dotenv/config";
 
 import connectToMongoDB from "./db/connectToMongoDB";
@@ -21,7 +22,17 @@ app.use(
 
 initRoutes(app);
 
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
+
 connectToMongoDB();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const PORT = process.env.PORT || 7000;
 

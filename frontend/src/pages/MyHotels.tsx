@@ -25,7 +25,7 @@ const HotelProperty = ({
 
 const HotelCard = ({ hotel }: { hotel: HotelType }) => {
   return (
-    <div className="relative">
+    <div className="relative group">
       <div className="h-full flex border border-slate-300 rounded-lg p-4 gap-5">
         <img
           className="size-48 object-cover rounded-lg"
@@ -62,7 +62,7 @@ const HotelCard = ({ hotel }: { hotel: HotelType }) => {
       </div>
       <Link
         to={`/edit-hotel/${hotel._id}`}
-        className="absolute top-0 left-0 size-full flex items-center justify-center gap-2 rounded-lg bg-gray-900 text-white text-xl font-bold opacity-0 hover:opacity-80"
+        className="absolute inset-0 flex items-center justify-center gap-2 rounded-lg bg-gray-900 text-white text-xl font-bold bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity"
       >
         <LuPenSquare className="size-8" /> View Details
       </Link>

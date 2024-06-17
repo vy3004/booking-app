@@ -33,6 +33,15 @@ router.post(
   HotelController.createHotel
 );
 
-router.get("/", verifyToken, HotelController.getHotels);
+router.get("/", verifyToken, HotelController.getMyHotels);
+
+router.get("/:hotelId", verifyToken, HotelController.getMyHotelById);
+
+router.put(
+  "/:hotelId",
+  verifyToken,
+  upload.array("imageFiles"),
+  HotelController.updateMyHotelById
+);
 
 export default router;

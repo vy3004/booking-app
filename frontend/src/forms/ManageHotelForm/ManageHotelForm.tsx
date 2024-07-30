@@ -76,6 +76,10 @@ const ManageHotelForm = ({
 
   return (
     <FormProvider {...formMethods}>
+      <h1 className="text-3xl font-bold mb-4">
+        {hotel ? "Edit" : "Add"} Hotel
+      </h1>
+
       <form className="space-y-4" onSubmit={onSubmit}>
         <DetailsSection />
         <TypeSection />

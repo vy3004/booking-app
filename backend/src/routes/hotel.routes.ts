@@ -16,7 +16,7 @@ const upload = multer({
 });
 
 router.post(
-  "/",
+  "/my",
   verifyToken,
   [
     body("name", "Name is required").notEmpty(),
@@ -33,15 +33,17 @@ router.post(
   HotelController.createHotel
 );
 
-router.get("/", verifyToken, HotelController.getMyHotels);
+router.get("/my", verifyToken, HotelController.getMyHotels);
 
-router.get("/:hotelId", verifyToken, HotelController.getMyHotelById);
+router.get("/my/:hotelId", verifyToken, HotelController.getMyHotelById);
 
 router.put(
-  "/:hotelId",
+  "/my/:hotelId",
   verifyToken,
   upload.array("imageFiles"),
   HotelController.updateMyHotelById
 );
+
+router.get("/search", HotelController.searchHotels);
 
 export default router;

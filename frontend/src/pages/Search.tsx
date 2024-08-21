@@ -192,7 +192,10 @@ const Search = () => {
               {search.destination}
             </span>
           </div>
-          <HotelSort value={sortOption} onChange={setSortOption} />
+          <div>
+            <span className="mr-2 font-semibold">Sort by</span>
+            <HotelSort value={sortOption} onChange={setSortOption} />
+          </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -225,7 +228,7 @@ const Search = () => {
               <HotelCard
                 key={hotel._id}
                 hotel={hotel}
-                link={`/detail/${hotel._id}`}
+                link={`/hotels/${hotel._id}`}
               />
             ))}
 

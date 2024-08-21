@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
+import { validationResult } from "express-validator";
 
 import Hotel from "../models/hotel.model";
-import { HotelSearchResponse, HotelType } from "../types";
+import { HotelType } from "../types";
 
 import { uploadImagesToCloudinary } from "../utils";
 
@@ -195,4 +196,26 @@ const constructSearchQuery = (queryParams: any) => {
   }
 
   return constructedQuery;
+};
+
+export const getHotelById = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array() });
+  }
+
+  const hotelId = req.params.hotelId.toString();
+
+  try {
+    const hotel = await Hotel.findById(hotelId);
+
+    if (!hotel) {
+      return res.status(404).json({ message: "Hotel not found" });
+    }
+
+    res.json(hotel);
+  } catch (error) {
+    console.log("Error get hotel by id ", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
 };

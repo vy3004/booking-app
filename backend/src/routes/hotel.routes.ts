@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 import verifyToken from "../middleware/auth.middleware";
 import * as HotelController from "../controllers/hotel.controller";
@@ -45,5 +45,11 @@ router.put(
 );
 
 router.get("/search", HotelController.searchHotels);
+
+router.get(
+  "/:hotelId",
+  [param("hotelId").notEmpty().withMessage("Hotel Id is required")],
+  HotelController.getHotelById
+);
 
 export default router;

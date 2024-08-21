@@ -161,3 +161,12 @@ export const searchHotels = async (
 
   return response.json();
 };
+
+export const getHotelById = async (hotelId: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`);
+  if (!response.ok) {
+    throw new Error("Failed to get hotel");
+  }
+
+  return response.json();
+};

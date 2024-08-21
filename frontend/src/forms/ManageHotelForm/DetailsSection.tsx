@@ -1,4 +1,7 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
+
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import { HotelFormData } from "./ManageHotelForm";
 
@@ -6,6 +9,7 @@ const DetailsSection = () => {
   const {
     register,
     formState: { errors },
+    control,
   } = useFormContext<HotelFormData>();
 
   return (
@@ -47,10 +51,19 @@ const DetailsSection = () => {
       </div>
       <label className="text-gray-700 text-sm font-bold">
         Description
-        <textarea
-          rows={10}
-          className="border rounded w-full py-1 px-2 font-normal"
-          {...register("description", { required: "This field is required" })}
+        <Controller
+          name="description"
+          control={control}
+          rules={{ required: "This field is required" }}
+          render={({ field }) => (
+            <ReactQuill
+              className="font-normal"
+              theme="snow"
+              placeholder="Write something..."
+              value={field.value || ""}
+              onChange={field.onChange}
+            />
+          )}
         />
         {errors.description && (
           <span className="text-red-500">{errors.description.message}</span>
